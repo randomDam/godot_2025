@@ -1,0 +1,31 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://dupebs5xim5dy"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_51vmd"]
+resource_name = "Reverb"
+spread = 0.79
+hipass = 0.23
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_g5fi7"]
+resource_name = "Chorus"
+wet = 0.89
+voice/2/delay_ms = 34.42
+voice/2/depth_ms = 10.05
+voice/2/level_db = 3.2
+
+[resource]
+bus/1/name = &"env"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectReverb_51vmd")
+bus/1/effect/0/enabled = true
+bus/2/name = &"forest"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectChorus_g5fi7")
+bus/2/effect/0/enabled = true

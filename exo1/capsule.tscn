@@ -1,0 +1,61 @@
+[gd_scene load_steps=12 format=3 uid="uid://b7n1ubl06vmup"]
+
+[ext_resource type="Script" uid="uid://bsy2o5gjmvp7v" path="res://capsule.gd" id="1_ayfd4"]
+[ext_resource type="Shader" uid="uid://dle8lbi040gkf" path="res://glass.gdshader" id="1_ya2am"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3wadi"]
+rough = true
+bounce = 0.51
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1u10v"]
+height = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yn2ra"]
+albedo_color = Color(0.470076, 0.470076, 0.470076, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uv7bd"]
+material = SubResource("StandardMaterial3D_yn2ra")
+height = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_faf4i"]
+size = Vector3(2, 1, 2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vcx24"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ycuue"]
+noise = SubResource("FastNoiseLite_vcx24")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hn7ac"]
+render_priority = 0
+shader = ExtResource("1_ya2am")
+shader_parameter/tint_color = Color(1, 1, 1, 0.611765)
+shader_parameter/backlight_color = Color(0.625597, 0.625597, 0.625597, 1)
+shader_parameter/noise_strenght = 0.011
+shader_parameter/roughness = 0.3
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_ycuue")
+shader_parameter/normal_strenght = 0.692
+
+[sub_resource type="BoxMesh" id="BoxMesh_uscus"]
+material = SubResource("ShaderMaterial_hn7ac")
+size = Vector3(2, 1, 2)
+
+[node name="capsule5" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_3wadi")
+script = ExtResource("1_ayfd4")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1u10v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_uv7bd")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_faf4i")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+gi_mode = 2
+mesh = SubResource("BoxMesh_uscus")
